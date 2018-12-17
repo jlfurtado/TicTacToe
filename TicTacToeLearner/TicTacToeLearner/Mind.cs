@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe;
+using TicTacToe.Public;
 using TicTacToeLearner.KnowledgeStorage;
 using Utils;
 
@@ -28,7 +29,7 @@ namespace TicTacToeLearner
             var bestKnownMove = knownMoves.Select(km => knowledge[km]).OrderByDescending(km => km.AverageValue).FirstOrDefault();
             var unknownMoves = validMoves.Except(knownMoves.Select(km => km.Move));
 
-            return unknownMoves.Count() == 0 || (bestKnownMove?.AverageValue ?? 0.0) > 0.5 ? bestKnownMove.Move : unknownMoves.Random();
+            return unknownMoves.Count() == 0 || (bestKnownMove?.AverageValue ?? 0.0) > 0.25 ? bestKnownMove.Move : unknownMoves.Random();
         }
 
         public void LearnFromExperience(Experience experience)

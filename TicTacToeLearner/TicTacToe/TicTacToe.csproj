@@ -41,16 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
-    <Compile Include="BoardTO.cs" />
-    <Compile Include="OnStartEventArgs.cs" />
-    <Compile Include="OnWinEventArgs.cs" />
-    <Compile Include="OnMoveEventArgs.cs" />
-    <Compile Include="Symbol.cs" />
-    <Compile Include="BoardState.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Move.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Internal\Board.cs" />
+    <Compile Include="Public\BoardTO.cs" />
+    <Compile Include="Public\Event\OnStartEventArgs.cs" />
+    <Compile Include="Public\Event\OnWinEventArgs.cs" />
+    <Compile Include="Public\Event\OnMoveEventArgs.cs" />
+    <Compile Include="Public\Symbol.cs" />
+    <Compile Include="Internal\BoardState.cs" />
+    <Compile Include="Public\Game.cs" />
+    <Compile Include="Public\Move.cs" />
+    <Compile Include="Public\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe;
+using TicTacToe.Public;
+using TicTacToe.Public.Event;
 using TicTacToeLearner;
 
 namespace TicTacToeConsoleUI
@@ -11,15 +13,16 @@ namespace TicTacToeConsoleUI
     public class BoardUI
     {
         private Game game;
-        private Dictionary<Player, int> winCounts = new Dictionary<Player, int>();
+        private Dictionary<Player, int> winCounts;
 
-        public BoardUI()
+        private static readonly IReadOnlyDictionary<string, Func<string[], Player>> testPlayers = new Dictionary<string, Func<string[], Player>>()
         {
-            this.game = new Game(new RandomPlayer(), new LearningAIPlayer("five-million-overnight.txt"));
-            //game.RaisePostMove += OnMove;
-            game.RaiseOnWin += OnWin;
-            //game.RaiseOnStart += OnGameStart;
-        }
+            { "console", args => new ConsolePlayer() },
+            { "learning", args => new LearningAIPlayer(args.FirstOrDefault()) },
+            { "first", args => new FirstMovePlayer() },
+            { "last", args => new LastMovePlayer() },
+            { "random", args => new RandomPlayer() }
+        };
 
         private void OnMove(object sender, OnMoveEventArgs args)
         {
@@ -46,20 +49,55 @@ namespace TicTacToeConsoleUI
 
         public void Start()
         {
-            int gamesLeft = 1;
+            int gamesLeft = SetupGame();
             while (gamesLeft-- > 0)
             {
                 game.Start();
                 if (gamesLeft == 0)
                 {
                     game.Shutdown();
-                    Console.Write("How many more?: ");
-                    if (!int.TryParse(Console.ReadLine(), out gamesLeft))
-                    {
-                        gamesLeft = 0;
-                    }
+                    gamesLeft = SetupGame();
                 }
             }
+        }
+
+        private int SetupGame()
+        {
+            int gamesLeft;
+            Console.Write("How many more?: ");
+            if (!int.TryParse(Console.ReadLine(), out gamesLeft))
+            {
+                return 0;
+            }
+
+            if (gamesLeft > 0)
+            {
+                Console.Write("Enter players: ");
+
+                IEnumerable<Tuple<string, string[]>> players = Console.ReadLine().Split(' ').Select(s => {
+                    string[] srcArgs = s.TrimEnd(')').Split('(');
+                    return new Tuple<string, string[]>(srcArgs.FirstOrDefault(), srcArgs.LastOrDefault().Split(','));
+                });
+
+                game = new Game(players.Select(p => testPlayers[p.Item1](p.Item2)).ToArray());
+                winCounts = new Dictionary<Player, int>();
+
+                Console.Write("Display board after each turn? (Y/N): ");
+                if (Console.ReadLine().ToUpper().StartsWith("Y"))
+                {
+                    game.RaisePostMove += OnMove;
+                }
+
+                game.RaiseOnWin += OnWin;
+
+                Console.Write("Display board on start? (Y/N): ");
+                if (Console.ReadLine().ToUpper().StartsWith("Y"))
+                {
+                    game.RaiseOnStart += OnGameStart;
+                }
+            }
+
+            return gamesLeft;
         }
 
         private void DisplayBoard(BoardTO board)

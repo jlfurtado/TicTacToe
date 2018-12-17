@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.Public;
 
-namespace TicTacToe
+namespace TicTacToe.Internal
 {
-    public struct BoardState
+    internal struct BoardState
     {
         public Symbol[] Squares { get; }
 

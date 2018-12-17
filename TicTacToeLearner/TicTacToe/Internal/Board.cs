@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.Public;
 
-namespace TicTacToe
+namespace TicTacToe.Internal
 {
-    public class Board
+    internal class Board
     {
         private BoardState boardState;
         private int boardWidth;

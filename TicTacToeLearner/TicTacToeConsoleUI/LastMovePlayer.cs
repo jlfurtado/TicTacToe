@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TicTacToe;
 using TicTacToe.Public;
-using Utils;
 
 namespace TicTacToeConsoleUI
 {
-    public class RandomPlayer : Player
+    public class LastMovePlayer : Player
     {
         public override void OnTurn()
         {
             base.OnTurn();
-            MakeMove(Game.ValidMoves().Random());
+            MakeMove(Game.ValidMoves().Last());
         }
     }
 }

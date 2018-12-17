@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.Internal;
+using TicTacToe.Public.Event;
 using Utils;
 
-namespace TicTacToe
+namespace TicTacToe.Public
 {
     public class Game
     {

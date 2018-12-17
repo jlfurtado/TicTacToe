@@ -12,7 +12,7 @@ namespace Utils
 
         public static T Random<T>(this IEnumerable<T> enumerable)
         {
-            return enumerable.ElementAt(rand.Next(enumerable.Count()));
+            return enumerable.ElementAt(enumerable.RandomIndex());
         }
 
         public static IEnumerable<T> TakeRandom<T>(this IEnumerable<T> enumerable, out T element)

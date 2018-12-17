@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe;
+using TicTacToe.Public;
+using TicTacToe.Public.Event;
 using TicTacToeLearner.KnowledgeStorage;
 using Utils;
 
@@ -57,18 +59,18 @@ namespace TicTacToeLearner
 
         private void ProcessPendingExperiences(Player winner)
         {
-            if (winner != null) // Don't even bother tracking cats games as they make it harder to learn later by inflating our denominators
-            {
+            //if (winner != null) // Don't even bother tracking cats games as they make it harder to learn later by inflating our denominators
+            //{
                 int numExperiences = pendingExperiences.Count;
                 for (int i = 0; i < numExperiences; ++i)
                 {
                     var experience = pendingExperiences[i];
-                    experience.Value = ((i + 1.0) / (numExperiences + 1.0)) * ((winner.Symbol == experience.Symbol) ? 1.0 : -1.0);
+                    experience.Value = winner == null ? 0.0 : ((i + 1.0) / (numExperiences + 1.0)) * ((winner.Symbol == experience.Symbol) ? 1.0 : -1.0);
                     mind.LearnFromExperience(experience);
                 }
 
                 pendingExperiences.Clear();
-            }
+            //}
         }
 
         private void LogPendingExperiences()

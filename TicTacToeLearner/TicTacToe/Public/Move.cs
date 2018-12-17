@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicTacToe
+namespace TicTacToe.Public
 {
     public class Move : IEquatable<Move>
     {
