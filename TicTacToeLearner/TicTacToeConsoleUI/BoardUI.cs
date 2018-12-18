@@ -21,7 +21,8 @@ namespace TicTacToeConsoleUI
             { "learning", args => new LearningAIPlayer(args.FirstOrDefault()) },
             { "first", args => new FirstMovePlayer() },
             { "last", args => new LastMovePlayer() },
-            { "random", args => new RandomPlayer() }
+            { "random", args => new RandomPlayer() },
+            { "variety", args => new TryNewThingsPlayer() }
         };
 
         private void OnMove(object sender, OnMoveEventArgs args)

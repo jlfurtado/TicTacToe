@@ -25,9 +25,16 @@ namespace TicTacToeLearner
         {
             var validMoveExperiences = validMoves.Select(vm => new Experience(boardState, vm, symbol));
             var knownMoves = validMoveExperiences.Where(vm => knowledge.ContainsKey(vm));
-            //var knownMoves = knowledge.Where(k => k.BoardState == boardState && k.Symbol == symbol && validMoves.Contains(k.Move));
-            var bestKnownMove = knownMoves.Select(km => knowledge[km]).OrderByDescending(km => km.AverageValue).FirstOrDefault();
             var unknownMoves = validMoves.Except(knownMoves.Select(km => km.Move));
+
+            // TODO: clean this up
+            var move = unknownMoves.FirstOrDefault();
+            if (move != null)
+            {
+                return move;
+            }
+
+            var bestKnownMove = knownMoves.Select(km => knowledge[km]).OrderByDescending(km => km.AverageValue).FirstOrDefault();
 
             return unknownMoves.Count() == 0 || (bestKnownMove?.AverageValue ?? 0.0) > 0.25 ? bestKnownMove.Move : unknownMoves.Random();
         }

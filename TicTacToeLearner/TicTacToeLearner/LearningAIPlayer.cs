@@ -65,7 +65,8 @@ namespace TicTacToeLearner
                 for (int i = 0; i < numExperiences; ++i)
                 {
                     var experience = pendingExperiences[i];
-                    experience.Value = winner == null ? 0.0 : ((i + 1.0) / (numExperiences + 1.0)) * ((winner.Symbol == experience.Symbol) ? 1.0 : -1.0);
+                    // (i + 1) / numExperiences
+                    experience.Value = winner == null ? 0.0 : Math.Sqrt((i + 1.0) / numExperiences) * ((winner.Symbol == experience.Symbol) ? 1.0 : -1.0);
                     mind.LearnFromExperience(experience);
                 }
 
