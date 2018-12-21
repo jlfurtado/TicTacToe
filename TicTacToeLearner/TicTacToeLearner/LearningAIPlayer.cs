@@ -27,10 +27,8 @@ namespace TicTacToeLearner
             MakeMove(mind.GetBestMove(Game.ViewBoard(), Symbol, Game.ValidMoves()));
         }
 
-        public override void AddToGame(Game game)
+        public override void OnAttachToGame(Game game)
         {
-            base.AddToGame(game);
-
             // game.RaiseOnStart +=
             game.RaisePreMove += OnMove;
             game.RaiseOnWin += OnWin;

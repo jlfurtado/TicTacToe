@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinmaxAI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using Utils;
 
 namespace TicTacToe.Public
 {
-    public class Game
+    public class Game : IGame<Game, Move>
     {
         public delegate void OnMoveHandler(object sender, OnMoveEventArgs args);
         public delegate void OnWinHandler(object sender, OnWinEventArgs args);
@@ -26,6 +27,7 @@ namespace TicTacToe.Public
         private Player[] players;
         private int whoseTurn = 0;
         private IEnumerable<Symbol> availiableSymbols;
+        Stack<Tuple<Board, int>> stack = new Stack<Tuple<Board, int>>();
 
         public Game(params Player[] players)
         {
@@ -33,6 +35,11 @@ namespace TicTacToe.Public
 
             this.players = players;   
             availiableSymbols = Enum.GetValues(typeof(Symbol)).Cast<Symbol>().Where(s => s != Symbol.Empty);
+            
+            if (players.Length > availiableSymbols.Count())
+            {
+                throw new InvalidOperationException("Cannot have more players than availiable symbols!");
+            }
 
             foreach (Player player in players)
             {
@@ -44,11 +51,6 @@ namespace TicTacToe.Public
         {
             board.Clear();
             var unusedSymbols = availiableSymbols;
-            
-            if (players.Length > unusedSymbols.Count())
-            {
-                throw new InvalidOperationException("Cannot have more players than availiable symbols!");
-            }
 
             foreach (Player player in this.players)
             {
@@ -58,7 +60,6 @@ namespace TicTacToe.Public
             }
 
             RaiseOnStart?.Invoke(this, new OnStartEventArgs(ViewBoard()));
-
             players[whoseTurn].OnTurn();
         }
         
@@ -74,41 +75,60 @@ namespace TicTacToe.Public
                 throw new InvalidOperationException(nameof(player));
             }
 
-            RaisePreMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), move, players[whoseTurn]));
-            board.MakeMove(player.Symbol, move);
-            RaisePostMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), move, players[whoseTurn]));
-
-            if (IsWinningLine())
+            if (!stack.Any())
             {
-               RaiseOnWin?.Invoke(this, new OnWinEventArgs(ViewBoard(), move, players[whoseTurn]));
+                RaisePreMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), move, players[whoseTurn]));
             }
-            else if (ValidMoves().Count() == 0)
+
+            board.MakeMove(player.Symbol, move);
+
+            if (!stack.Any())
             {
-                RaiseOnWin?.Invoke(this, new OnWinEventArgs(ViewBoard(), move, null));
+                RaisePostMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), move, players[whoseTurn]));
+            }
+
+            if (IsOver())
+            {
+                if (!stack.Any())
+                {
+                    RaiseOnWin?.Invoke(this, new OnWinEventArgs(ViewBoard(), move, GetWinner()));
+                }
             }
             else 
             {
                 whoseTurn = (whoseTurn + 1) % players.Length;
-                players[whoseTurn].OnTurn();
+                if (!stack.Any())
+                {
+                    players[whoseTurn].OnTurn();
+                }
             }
-
         }
-        
+
+        public Player GetWinner()
+        {
+            return IsWinningLine() ? players[whoseTurn] : null;
+        }
+
+        public bool IsOver()
+        {
+            return IsWinningLine() || !ValidMoves().Any();
+        }
+
         private bool IsWinningLine()
         {
-            return Is3InARow(0, 1, 2)
-                || Is3InARow(3, 4, 5)
-                || Is3InARow(6, 7, 8)
-                || Is3InARow(0, 3, 6)
-                || Is3InARow(1, 4, 7)
-                || Is3InARow(2, 5, 8)
-                || Is3InARow(0, 4, 8)
-                || Is3InARow(2, 4, 6);
+            var s = ViewBoard().Symbols;
+            return Is3InARow(s, 0, 1, 2)
+                || Is3InARow(s, 3, 4, 5)
+                || Is3InARow(s, 6, 7, 8)
+                || Is3InARow(s, 0, 3, 6)
+                || Is3InARow(s, 1, 4, 7)
+                || Is3InARow(s, 2, 5, 8)
+                || Is3InARow(s, 0, 4, 8)
+                || Is3InARow(s, 2, 4, 6);
         }
 
-        private bool Is3InARow(int a, int b, int c)
+        private bool Is3InARow(Symbol[] symbols, int a, int b, int c)
         {
-            var symbols = ViewBoard().Symbols;
             return symbols[a] == symbols[b]
                 && symbols[b] == symbols[c]
                 && symbols[c] != Symbol.Empty;
@@ -127,6 +147,21 @@ namespace TicTacToe.Public
         public BoardTO ViewBoard()
         {
             return board.AsBoardTO();
+        }
+
+        public void AddFakeMove(Move move)
+        {
+            stack.Push(new Tuple<Board, int>(board.Copy(), whoseTurn));
+            MakeMove(players[whoseTurn], move);
+            //RaisePostMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), move, players[whoseTurn]));
+        }
+
+        public void UndoFakeMove()
+        {
+            var prev = stack.Pop();
+            board = prev.Item1;
+            whoseTurn = prev.Item2;
+            //RaisePostMove?.Invoke(this, new OnMoveEventArgs(ViewBoard(), null, players[whoseTurn]));
         }
     }
 }

@@ -18,7 +18,6 @@ namespace TicTacToe.Public
             set
             {
                 _symbol = value != Symbol.Empty ? value : throw new ArgumentException(nameof(Symbol));
-
             }
         }
 
@@ -29,19 +28,20 @@ namespace TicTacToe.Public
             Game.MakeMove(this, move);
         }
 
-        public virtual void OnAttachToGame(Game game)
-        {
-
-        }
-
         public virtual void OnTurn()
         {
             
         }
 
-        public virtual void AddToGame(Game game)
+        public virtual void OnAttachToGame(Game game)
+        {
+
+        }
+
+        public void AddToGame(Game game)
         {
             Game = game;
+            OnAttachToGame(game);
         }
     }
 }

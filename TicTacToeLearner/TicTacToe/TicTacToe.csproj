@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseGame\Interfaces.csproj">
+      <Project>{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{2E17E66A-74E2-4989-BA03-50285351F5EC}</Project>
       <Name>Utils</Name>

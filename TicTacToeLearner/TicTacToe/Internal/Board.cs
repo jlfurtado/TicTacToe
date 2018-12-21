@@ -20,6 +20,13 @@ namespace TicTacToe.Internal
             boardState = new BoardState(width * height);
         }
 
+        public Board Copy()
+        {
+            var board = new Board(boardWidth, boardHeight);
+            Array.Copy(boardState.Squares, board.boardState.Squares, 9);
+            return board;
+        }
+        
         public BoardTO AsBoardTO()
         {
             return new BoardTO(boardState.Squares);

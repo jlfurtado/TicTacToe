@@ -22,7 +22,8 @@ namespace TicTacToeConsoleUI
             { "first", args => new FirstMovePlayer() },
             { "last", args => new LastMovePlayer() },
             { "random", args => new RandomPlayer() },
-            { "variety", args => new TryNewThingsPlayer() }
+            { "variety", args => new TryNewThingsPlayer() },
+            { "minmax", args => new MinmaxPlayer() }
         };
 
         private void OnMove(object sender, OnMoveEventArgs args)

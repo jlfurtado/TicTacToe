@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe", "TicTacToe\TicT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{2E17E66A-74E2-4989-BA03-50285351F5EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinmaxAI", "MinmaxAI\MinmaxAI.csproj", "{84CB8CD8-7DF4-467D-B014-C3219188052C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "BaseGame\Interfaces.csproj", "{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{2E17E66A-74E2-4989-BA03-50285351F5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E17E66A-74E2-4989-BA03-50285351F5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E17E66A-74E2-4989-BA03-50285351F5EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CB8CD8-7DF4-467D-B014-C3219188052C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CB8CD8-7DF4-467D-B014-C3219188052C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CB8CD8-7DF4-467D-B014-C3219188052C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CB8CD8-7DF4-467D-B014-C3219188052C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
