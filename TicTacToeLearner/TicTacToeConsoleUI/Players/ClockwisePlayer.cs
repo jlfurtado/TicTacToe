@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TicTacToe;
 using TicTacToe.Public;
-using Utils;
 
-namespace TicTacToeConsoleUI
+namespace TicTacToeConsoleUI.Players
 {
-    public class RandomPlayer : Player
+    public class ClockwisePlayer : Player
     {
         public override void OnTurn()
         {
             base.OnTurn();
-            MakeMove(Game.ValidMoves().Random());
+            MakeMove(PickMove());
+        }
+
+        private Move PickMove()
+        {
+            throw new NotImplementedException();
         }
     }
 }

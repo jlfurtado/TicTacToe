@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Public;
 
-namespace TicTacToeConsoleUI
+namespace TicTacToeConsoleUI.Players
 {
-    public class ClockwisePlayer : Player
+    public class CounterClockwisePlayer : Player
     {
         public override void OnTurn()
         {

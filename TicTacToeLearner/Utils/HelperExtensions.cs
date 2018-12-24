@@ -10,11 +10,6 @@ namespace Utils
     {
         private static readonly Random rand = new Random();
 
-        public static T Random<T>(this IEnumerable<T> enumerable)
-        {
-            return enumerable.ElementAt(enumerable.RandomIndex());
-        }
-
         public static IEnumerable<T> TakeRandom<T>(this IEnumerable<T> enumerable, out T element)
         {
             int toTake = enumerable.RandomIndex();

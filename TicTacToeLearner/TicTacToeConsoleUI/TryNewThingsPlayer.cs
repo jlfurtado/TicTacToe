@@ -33,7 +33,7 @@ namespace TicTacToeConsoleUI
             }
             else
             {
-                MakeMove(validMoves.Random());
+                MakeMove(validMoves.FirstOrDefault());
             }
         }
     }
