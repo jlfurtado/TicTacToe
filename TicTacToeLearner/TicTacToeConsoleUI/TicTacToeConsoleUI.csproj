@@ -47,8 +47,8 @@
     <Compile Include="BoardUI.cs" />
     <Compile Include="CounterClockwisePlayer.cs" />
     <Compile Include="ClockwisePlayer.cs" />
-    <Compile Include="LastMovePlayer.cs" />
-    <Compile Include="FirstMovePlayer.cs" />
+    <Compile Include="Players\LastMovePlayer.cs" />
+    <Compile Include="Players\FirstMovePlayer.cs" />
     <Compile Include="MinmaxPlayer.cs" />
     <Compile Include="PickALinePlayer.cs" />
     <Compile Include="Program.cs" />
@@ -68,6 +68,10 @@
     <ProjectReference Include="..\MinmaxAI\MinmaxAI.csproj">
       <Project>{84CB8CD8-7DF4-467D-B014-C3219188052C}</Project>
       <Name>MinmaxAI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleMinds\SimpleMinds.csproj">
+      <Project>{2797E607-F2CC-42FB-9828-953E979253E0}</Project>
+      <Name>SimpleMinds</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicTacToeLearner\TicTacToeLearner.csproj">
       <Project>{086E27D3-35A8-4C37-852E-0A2B77EDA828}</Project>

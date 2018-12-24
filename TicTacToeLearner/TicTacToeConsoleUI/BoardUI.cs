@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TicTacToe;
 using TicTacToe.Public;
 using TicTacToe.Public.Event;
+using TicTacToeConsoleUI.Players;
 using TicTacToeLearner;
 
 namespace TicTacToeConsoleUI

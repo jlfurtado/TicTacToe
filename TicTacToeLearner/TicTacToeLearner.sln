@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinmaxAI", "MinmaxAI\Minmax
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "BaseGame\Interfaces.csproj", "{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMinds", "SimpleMinds\SimpleMinds.csproj", "{2797E607-F2CC-42FB-9828-953E979253E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMindsTests", "SimpleMindsTests\SimpleMindsTests.csproj", "{5AB6167F-393F-428A-ABAD-E03EF114830E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10D1AE0F-4929-4201-AD9D-1CCF4510CB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2797E607-F2CC-42FB-9828-953E979253E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2797E607-F2CC-42FB-9828-953E979253E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2797E607-F2CC-42FB-9828-953E979253E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2797E607-F2CC-42FB-9828-953E979253E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB6167F-393F-428A-ABAD-E03EF114830E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB6167F-393F-428A-ABAD-E03EF114830E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB6167F-393F-428A-ABAD-E03EF114830E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB6167F-393F-428A-ABAD-E03EF114830E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
