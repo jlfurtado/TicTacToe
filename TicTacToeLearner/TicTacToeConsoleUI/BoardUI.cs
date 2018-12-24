@@ -14,6 +14,7 @@ namespace TicTacToeConsoleUI
     {
         private Game game;
         private Dictionary<Player, int> winCounts;
+        private int catGames;
 
         private static readonly IReadOnlyDictionary<string, Func<string[], Player>> testPlayers = new Dictionary<string, Func<string[], Player>>()
         {
@@ -23,7 +24,9 @@ namespace TicTacToeConsoleUI
             { "last", args => new LastMovePlayer() },
             { "random", args => new RandomPlayer() },
             { "variety", args => new TryNewThingsPlayer() },
-            { "minmax", args => new MinmaxPlayer() }
+            { "minmax", args => new MinmaxPlayer() },
+            { "line", args => new PickALinePlayer() },
+            { "block", args => new AlwaysBlockPlayer() }
         };
 
         private void OnMove(object sender, OnMoveEventArgs args)
@@ -44,9 +47,13 @@ namespace TicTacToeConsoleUI
             {
                 winCounts[player] = (winCounts.ContainsKey(player) ? winCounts[player] : 0) + 1;
             }
+            else
+            {
+                ++catGames;
+            }
 
             Console.WriteLine(player == null ? "Cat's game!" : $"{player.Symbol} wins!");
-            Console.WriteLine($"Win counts for players: ({string.Join(",", winCounts.Select(p => $"{p.Key}:{p.Value}"))})");
+            Console.WriteLine($"Win counts for players: ({string.Join(",", winCounts.Select(p => $"{p.Key}:{p.Value}"))}) and {catGames} ties!");
         }
 
         public void Start()
@@ -83,6 +90,7 @@ namespace TicTacToeConsoleUI
 
                 game = new Game(players.Select(p => testPlayers[p.Item1](p.Item2)).ToArray());
                 winCounts = new Dictionary<Player, int>();
+                catGames = 0;
 
                 Console.Write("Display board after each turn? (Y/N): ");
                 if (Console.ReadLine().ToUpper().StartsWith("Y"))

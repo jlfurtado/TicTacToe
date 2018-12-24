@@ -23,6 +23,7 @@ namespace TicTacToe.Public
         public event OnWinHandler RaiseOnWin;
         public event OnShutdownHandler RaiseShutdown;
 
+        private readonly IEnumerable<IEnumerable<Move>> lines;
         private Board board;
         private Player[] players;
         private int whoseTurn = 0;
@@ -32,7 +33,8 @@ namespace TicTacToe.Public
         public Game(params Player[] players)
         {
             board = new Board(3, 3);
-
+            lines = board.GetAllLines();
+            
             this.players = players;   
             availiableSymbols = Enum.GetValues(typeof(Symbol)).Cast<Symbol>().Where(s => s != Symbol.Empty);
             
@@ -137,6 +139,11 @@ namespace TicTacToe.Public
         public IEnumerable<Move> ValidMoves()
         {
             return board.GetValidMoves();
+        }
+
+        public IEnumerable<IEnumerable<Move>> GetAllLines()
+        {
+            return lines;
         }
 
         public bool IsPlayerTurn(Player player)

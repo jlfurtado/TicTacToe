@@ -26,6 +26,25 @@ namespace TicTacToe.Internal
             Array.Copy(boardState.Squares, board.boardState.Squares, 9);
             return board;
         }
+
+        public IEnumerable<IEnumerable<Move>> GetAllLines()
+        {
+            var horiz = Enumerable.Range(0, boardWidth).Select(x => Enumerable.Range(0, boardHeight).Select(y => new Move(x, y)));
+            var vert = Enumerable.Range(0, boardHeight).Select(y => Enumerable.Range(0, boardWidth).Select(x => new Move(x, y)));
+            var result = horiz.Concat(vert);
+
+            if (boardWidth == boardHeight)
+            {
+                var diagonals = new IEnumerable<Move>[]
+                {
+                    Enumerable.Range(0, boardWidth).Select(z => new Move(z, z)),
+                    Enumerable.Range(0, boardHeight).Select(z => new Move(z, boardHeight - z - 1))
+                };
+                result = result.Concat(diagonals);
+            }
+
+            return result;
+        }
         
         public BoardTO AsBoardTO()
         {

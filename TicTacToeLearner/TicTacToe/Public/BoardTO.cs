@@ -25,6 +25,10 @@ namespace TicTacToe.Public
             return (object.ReferenceEquals(obj, this) || (GetType() == obj.GetType() && Equals(obj as BoardTO)));
         }
 
+        public Symbol SymbolAt(Move move)
+        {
+            return Symbols[move.Y * 3 + move.X];
+        }
         public override int GetHashCode()
         {
             unchecked

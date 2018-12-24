@@ -25,7 +25,7 @@ namespace MinmaxAI
 
         public TMove PickBestMove()
         {
-            return Minmax(1, true).Move;;
+            return Minmax(1, true).Move;
         }
 
         private ScoredMove Minmax(int depth, bool max)
